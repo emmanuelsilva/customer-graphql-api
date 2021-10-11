@@ -1,7 +1,8 @@
 # Customer GraphQL API
 * * *
+Hi there :wave:
 
-Example of project using Spring Boot to build a GraphQL API that supports Query, Mutation and Subscription by using WebSockets.
+This is an example of project using Spring Boot to build a GraphQL API that supports `Query`, `Mutation` and Websocket `Subscription`.
 
 ## GraphQL 
 * * *
@@ -15,7 +16,7 @@ Example of project using Spring Boot to build a GraphQL API that supports Query,
 
 Operations exposed to query data
 
-### List all customers
+#### List all customers
 ```graphql
 {
   customers {
@@ -26,7 +27,7 @@ Operations exposed to query data
 }
 ```
 
-### Find a customer by name
+#### Find a customer by name
 ```graphql
 {
   findCustomerByName(name: "Emmanuel") {
@@ -41,7 +42,7 @@ Operations exposed to query data
 
 Operation to change customers
 
-### Create a customer
+#### Create a customer
 ```graphql
 mutation {
   addCustomer(name: "New Customer") {
@@ -50,7 +51,7 @@ mutation {
 }
 ```
 
-### Change state of a customer
+#### Change state of a customer
 ```graphql
 mutation {
   changeState(customerId: 1, newState: CREATED) {
