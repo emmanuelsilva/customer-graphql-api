@@ -2,6 +2,12 @@
 
 Example of project using Spring Boot to build a GraphQL API that supports Query, Mutation and Subscription by using WebSockets.
 
+## GraphQL 
+
+- API Endpoint: http://localhost:8080/graphql
+- WS Subscription endpoint: ws://localhost:8080/graphql
+- GraphQL Playground URL: http://localhost:8080/graphiql/
+
 ## Queries
 
 Operations exposed to query data
