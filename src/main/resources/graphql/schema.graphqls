@@ -1,0 +1,32 @@
+type Query {
+    customers: [Customer]
+    findCustomerByName(name: String): Customer
+    findCustomersByState(state: State): [Customer]
+}
+
+type Mutation {
+    addCustomer(name: String): Customer
+    changeState(customerId: ID, newState: State): Customer
+}
+
+type Subscription {
+    changeStateEvents(customerId: ID): Customer
+}
+
+type Customer {
+    id: ID!
+    name: String!
+    state: State!
+}
+
+enum State {
+    CREATED
+    ACTIVATED
+    DEACTIVATED
+}
+
+type CustomerStateChangedEvent {
+    customerId: ID!
+    newState: State
+}
+
