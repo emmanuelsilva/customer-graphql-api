@@ -12,7 +12,7 @@ Operations exposed to query data
   customers {
     id,
     name,
-  	state
+    state
   }
 }
 ```
