@@ -50,7 +50,7 @@ public class CustomerController  {
     return changeCustomerStateService.changeState(id, newState);
   }
 
-  @SubscriptionMapping("changeStateEvents")
+  @SubscriptionMapping("customerChangeEvents")
   public Publisher<Customer> subscribeToChangeStateEvents(@Argument("customerId") int customerId) {
     return customerChangedEventBus.subscribeFor(customerId);
   }

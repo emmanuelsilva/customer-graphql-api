@@ -10,7 +10,7 @@ type Mutation {
 }
 
 type Subscription {
-    changeStateEvents(customerId: ID): Customer
+    customerChangeEvents(customerId: ID): Customer
 }
 
 type Customer {
