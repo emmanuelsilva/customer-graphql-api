@@ -45,7 +45,9 @@ Operation to change customers
 #### Create a customer
 ```graphql
 mutation {
-  addCustomer(name: "New Customer") {
+  addCustomer(request: {
+    name: "New Customer"
+  }) {
     id
   }
 }
@@ -54,7 +56,9 @@ mutation {
 #### Change state of a customer
 ```graphql
 mutation {
-  changeState(customerId: 1, newState: CREATED) {
+  changeState(request: {
+    customerId: 1, newState: CREATED
+  }) {
     id,
     name,
     state

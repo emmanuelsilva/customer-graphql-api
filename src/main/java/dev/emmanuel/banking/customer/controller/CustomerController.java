@@ -3,6 +3,8 @@ package dev.emmanuel.banking.customer.controller;
 import dev.emmanuel.banking.customer.domain.entity.Customer;
 import dev.emmanuel.banking.customer.domain.entity.State;
 import dev.emmanuel.banking.customer.domain.repository.CustomerRepository;
+import dev.emmanuel.banking.customer.dto.request.ChangeCustomerStateRequest;
+import dev.emmanuel.banking.customer.dto.request.CreateCustomerRequest;
 import dev.emmanuel.banking.customer.event.CustomerChangedEventBus;
 import dev.emmanuel.banking.customer.service.ChangeCustomerStateService;
 import dev.emmanuel.banking.customer.service.CreateCustomerService;
@@ -41,13 +43,13 @@ public class CustomerController  {
   }
 
   @MutationMapping("addCustomer")
-  public Mono<Customer> addCustomer(@Argument("name") String name) {
-    return createCustomerService.create(name);
+  public Mono<Customer> addCustomer(@Argument("request") CreateCustomerRequest request) {
+    return createCustomerService.create(request);
   }
 
   @MutationMapping("changeState")
-  public Mono<Customer> changeState(@Argument("customerId") int id, @Argument("newState") State newState) {
-    return changeCustomerStateService.changeState(id, newState);
+  public Mono<Customer> changeState(@Argument("request")ChangeCustomerStateRequest request) {
+    return changeCustomerStateService.changeState(request);
   }
 
   @SubscriptionMapping("customerChangeEvents")

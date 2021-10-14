@@ -4,9 +4,18 @@ type Query {
     findCustomersByState(state: State): [Customer]
 }
 
+input CreateCustomerRequest {
+    name: String!
+}
+
+input ChangeStateRequest {
+    customerId: ID!,
+    newState: State!
+}
+
 type Mutation {
-    addCustomer(name: String): Customer
-    changeState(customerId: ID, newState: State): Customer
+    addCustomer(request: CreateCustomerRequest): Customer
+    changeState(request: ChangeStateRequest): Customer
 }
 
 type Subscription {

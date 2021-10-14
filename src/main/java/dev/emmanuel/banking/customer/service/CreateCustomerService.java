@@ -3,6 +3,7 @@ package dev.emmanuel.banking.customer.service;
 import dev.emmanuel.banking.customer.domain.entity.Customer;
 import dev.emmanuel.banking.customer.domain.entity.State;
 import dev.emmanuel.banking.customer.domain.repository.CustomerRepository;
+import dev.emmanuel.banking.customer.dto.request.CreateCustomerRequest;
 import dev.emmanuel.banking.customer.exception.CustomerAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,16 +15,16 @@ public class CreateCustomerService {
 
   private final CustomerRepository customerRepository;
 
-  public Mono<Customer> create(String name) {
+  public Mono<Customer> create(CreateCustomerRequest request) {
     return this.customerRepository
-      .findByName(name)
+      .findByName(request.name())
       .flatMap(this::customerAlreadyExistent)
-      .switchIfEmpty(save(name));
+      .switchIfEmpty(save(request));
   }
 
-  private Mono<Customer> save(String name) {
+  private Mono<Customer> save(CreateCustomerRequest request) {
     return Mono.defer(() -> {
-      Customer newCustomer = new Customer(null, name, State.CREATED);
+      Customer newCustomer = new Customer(null, request.name(), State.CREATED);
       return customerRepository.save(newCustomer);
     });
   }
