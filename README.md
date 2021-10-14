@@ -11,7 +11,7 @@ This is an example of project using Spring Boot to build a GraphQL API that supp
 - WS Subscription endpoint: ws://localhost:8080/graphql
 - GraphQL Playground URL: http://localhost:8080/graphiql/
 
-## Queries
+### Queries
 * * *
 
 Operations exposed to query data
@@ -37,7 +37,7 @@ Operations exposed to query data
   }
 }
 ```
-## Mutations
+### Mutations
 * * *
 
 Operation to change customers
@@ -62,7 +62,7 @@ mutation {
 }
 ```
 
-## Subscriptions
+### Subscriptions
 * * *
 
 Operations to fetch changes in real-time by consuming server side events through Web sockets.
@@ -71,7 +71,7 @@ WS endpoint: ws://localhost:8080/graphql
 
 ```graphql
 subscription {
-  changeStateEvents(customerId: 1) { id, name, state}
+  customerChangeEvents(customerId: 1) { id, name, state}
 }
 ```
 
