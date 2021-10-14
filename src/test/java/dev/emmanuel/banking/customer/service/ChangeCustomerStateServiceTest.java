@@ -4,7 +4,7 @@ import dev.emmanuel.banking.customer.domain.entity.Customer;
 import dev.emmanuel.banking.customer.domain.entity.State;
 import dev.emmanuel.banking.customer.domain.repository.CustomerRepository;
 import dev.emmanuel.banking.customer.dto.request.ChangeCustomerStateRequest;
-import dev.emmanuel.banking.customer.event.CustomerChangedEventBus;
+import dev.emmanuel.banking.customer.event.CustomerEventBus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
@@ -17,13 +17,13 @@ import static org.mockito.Mockito.*;
 
 class ChangeCustomerStateServiceTest {
 
-  private CustomerChangedEventBus customerEventBus;
+  private CustomerEventBus customerEventBus;
   private CustomerRepository customerRepository;
   private ChangeCustomerStateService changeCustomerStateService;
 
   @BeforeEach
   void setUp() {
-    customerEventBus = mock(CustomerChangedEventBus.class);
+    customerEventBus = mock(CustomerEventBus.class);
     customerRepository = mock(CustomerRepository.class);
     changeCustomerStateService = new ChangeCustomerStateService(customerEventBus, customerRepository);
   }
@@ -65,7 +65,7 @@ class ChangeCustomerStateServiceTest {
     StepVerifier
       .create(changeCustomerStateService.changeState(request))
       .consumeNextWith((updatedCustomer) -> {
-        verify(customerEventBus).publishCustomerChange(updatedCustomer);
+        verify(customerEventBus).customerChanged(updatedCustomer);
       })
       .verifyComplete();
   }

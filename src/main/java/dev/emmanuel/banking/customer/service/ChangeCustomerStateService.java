@@ -3,7 +3,7 @@ package dev.emmanuel.banking.customer.service;
 import dev.emmanuel.banking.customer.domain.entity.Customer;
 import dev.emmanuel.banking.customer.domain.repository.CustomerRepository;
 import dev.emmanuel.banking.customer.dto.request.ChangeCustomerStateRequest;
-import dev.emmanuel.banking.customer.event.CustomerChangedEventBus;
+import dev.emmanuel.banking.customer.event.CustomerEventBus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class ChangeCustomerStateService {
 
-  private final CustomerChangedEventBus customerChangedEventBus;
+  private final CustomerEventBus customerEventBus;
   private final CustomerRepository customerRepository;
 
   public Mono<Customer> changeState(ChangeCustomerStateRequest request) {
@@ -24,7 +24,7 @@ public class ChangeCustomerStateService {
   }
 
   private void publishCustomerStateChangedEvent(Customer customer) {
-    customerChangedEventBus.publishCustomerChange(customer);
+    customerEventBus.customerChanged(customer);
   }
 
 }

@@ -5,7 +5,7 @@ import dev.emmanuel.banking.customer.domain.entity.State;
 import dev.emmanuel.banking.customer.domain.repository.CustomerRepository;
 import dev.emmanuel.banking.customer.dto.request.ChangeCustomerStateRequest;
 import dev.emmanuel.banking.customer.dto.request.CreateCustomerRequest;
-import dev.emmanuel.banking.customer.event.CustomerChangedEventBus;
+import dev.emmanuel.banking.customer.event.CustomerEventBus;
 import dev.emmanuel.banking.customer.service.ChangeCustomerStateService;
 import dev.emmanuel.banking.customer.service.CreateCustomerService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class CustomerController  {
 
   private final CreateCustomerService createCustomerService;
   private final ChangeCustomerStateService changeCustomerStateService;
-  private final CustomerChangedEventBus customerChangedEventBus;
+  private final CustomerEventBus customerEventBus;
   private final CustomerRepository customerRepository;
 
   @QueryMapping("customers")
@@ -54,6 +54,6 @@ public class CustomerController  {
 
   @SubscriptionMapping("customerChangeEvents")
   public Publisher<Customer> subscribeToChangeStateEvents(@Argument("customerId") int customerId) {
-    return customerChangedEventBus.subscribeFor(customerId);
+    return customerEventBus.subscribeFor(customerId);
   }
 }

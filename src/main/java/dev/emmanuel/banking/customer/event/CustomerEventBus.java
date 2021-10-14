@@ -6,15 +6,15 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Sinks;
 
 @Component
-public class CustomerChangedEventBus {
+public class CustomerEventBus {
 
   private final Sinks.Many<Customer> processor;
 
-  public CustomerChangedEventBus() {
+  public CustomerEventBus() {
     this.processor = Sinks.many().multicast().onBackpressureBuffer();
   }
 
-  public void publishCustomerChange(Customer customer) {
+  public void customerChanged(Customer customer) {
     this.processor.tryEmitNext(customer);
   }
 
