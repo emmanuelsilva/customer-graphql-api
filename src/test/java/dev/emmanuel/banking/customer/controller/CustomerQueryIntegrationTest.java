@@ -3,22 +3,29 @@ package dev.emmanuel.banking.customer.controller;
 import dev.emmanuel.banking.customer.domain.entity.Customer;
 import dev.emmanuel.banking.customer.domain.entity.State;
 import dev.emmanuel.banking.customer.domain.repository.CustomerRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.graphql.boot.test.tester.AutoConfigureGraphQlTester;
 
 import java.util.List;
 
 @SpringBootTest
+@AutoConfigureGraphQlTester
 public class CustomerQueryIntegrationTest extends GraphQLIntegrationTest {
 
   @Autowired
   private CustomerRepository customerRepository;
 
+  @BeforeEach
+  public void setUp() {
+    customerRepository.deleteAll().block();
+  }
+
   @Test
   void shouldListAllCustomersFromDatabase() {
-
-    List<Customer> customersOnDatabase = givenCustomersOnDatabase();
+    List<Customer> customersOnDatabase = givenListOfCustomersOnDatabase();
 
     var graphQLQuery =
       """
@@ -36,10 +43,35 @@ public class CustomerQueryIntegrationTest extends GraphQLIntegrationTest {
       .execute()
       .path("customers")
       .entityList(Customer.class)
-      .contains(customersOnDatabase.toArray(new Customer[0]));
+      .containsExactly(customersOnDatabase.toArray(new Customer[0]));
   }
 
-  private List<Customer> givenCustomersOnDatabase() {
+  @Test
+  public void shouldFindCustomerByName() {
+    var customerOnDatabase = customerRepository
+      .save(new Customer(null, "Customer name", State.CREATED))
+      .block();
+
+    var graphQLQuery =
+      """
+      {
+        findCustomerByName(name:"%s") {
+          id,
+          name,
+          state
+        }
+      }  
+      """;
+
+    this.graphQlTester
+      .query(graphQLQuery.formatted(customerOnDatabase.name()))
+      .execute()
+      .path("findCustomerByName")
+      .entity(Customer.class)
+      .isEqualTo(customerOnDatabase);
+  }
+
+  private List<Customer> givenListOfCustomersOnDatabase() {
     var firstCustomer = new Customer(null, "First Customer", State.CREATED);
     var secondCustomer = new Customer(null, "Second Customer", State.CREATED);
 
