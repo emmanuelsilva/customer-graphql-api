@@ -19,10 +19,10 @@ public class CreateCustomerService {
     return this.customerRepository
       .findByName(request.name())
       .flatMap(this::customerAlreadyExistent)
-      .switchIfEmpty(save(request));
+      .switchIfEmpty(saveNewCustomer(request));
   }
 
-  private Mono<Customer> save(CreateCustomerRequest request) {
+  private Mono<Customer> saveNewCustomer(CreateCustomerRequest request) {
     return Mono.defer(() -> {
       Customer newCustomer = new Customer(request.name(), State.CREATED);
       return customerRepository.save(newCustomer);
