@@ -7,13 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.graphql.boot.test.tester.AutoConfigureGraphQlTester;
 
 import java.util.List;
 
 @SpringBootTest
-@AutoConfigureGraphQlTester
-public class CustomerQueryIntegrationTest extends GraphQLIntegrationTest {
+public class CustomerQueryGraphQLIntegrationTest extends GraphQLIntegrationTest {
 
   @Autowired
   private CustomerRepository customerRepository;
