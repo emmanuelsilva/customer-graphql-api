@@ -43,8 +43,8 @@ public class CustomerMutationGraphQLIntegrationTest extends GraphQLIntegrationTe
       .execute()
       .path("addCustomer")
       .entity(Customer.class)
-      .satisfies(createdCustomer -> Objects.nonNull(createdCustomer.id()))
-      .satisfies(createdCustomer -> createdCustomer.name().equals(customerName));
+      .matches(createdCustomer -> Objects.nonNull(createdCustomer.id()))
+      .matches(createdCustomer -> createdCustomer.name().equals(customerName));
   }
 
   @Test
@@ -72,8 +72,8 @@ public class CustomerMutationGraphQLIntegrationTest extends GraphQLIntegrationTe
       .execute()
       .path("changeState")
       .entity(Customer.class)
-      .satisfies(updatedCustomer -> updatedCustomer.id().equals(customerId))
-      .satisfies(updatedCustomer -> updatedCustomer.state().equals(newState));
+      .matches(updatedCustomer -> updatedCustomer.id().equals(customerId))
+      .matches(updatedCustomer -> updatedCustomer.state().equals(newState));
   }
 
 }
