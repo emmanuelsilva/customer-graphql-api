@@ -24,7 +24,7 @@ public class CreateCustomerService {
 
   private Mono<Customer> saveNewCustomer(CreateCustomerRequest request) {
     return Mono.defer(() -> {
-      Customer newCustomer = new Customer(request.name(), State.CREATED);
+      Customer newCustomer = new Customer(null, request.name(), State.CREATED);
       return customerRepository.save(newCustomer);
     });
   }

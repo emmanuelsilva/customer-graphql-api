@@ -6,6 +6,7 @@ import dev.emmanuel.banking.customer.dto.request.ChangeCustomerStateRequest;
 import dev.emmanuel.banking.customer.event.CustomerEventBus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -15,6 +16,7 @@ public class ChangeCustomerStateService {
   private final CustomerEventBus customerEventBus;
   private final CustomerRepository customerRepository;
 
+  @Transactional
   public Mono<Customer> changeState(ChangeCustomerStateRequest request) {
     return customerRepository
       .findById(request.customerId())

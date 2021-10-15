@@ -28,7 +28,7 @@ public class CustomerSubscriptionGraphQLIntegrationTest extends GraphQLIntegrati
   @Test
   public void shouldReceiveChangesAfterSubscribeForEvents() {
     var customerOnDatabase = customerRepository
-      .save(new Customer("Customer", State.CREATED))
+      .save(new Customer(null,"Customer", State.CREATED))
       .block();
 
     Flux<GraphQlTester.ResponseSpec> customerChangedEvents = subscribeToReceiveChangeEvents(customerOnDatabase);
