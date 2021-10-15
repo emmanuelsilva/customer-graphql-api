@@ -47,7 +47,7 @@ public class CustomerQueryGraphQLIntegrationTest extends GraphQLIntegrationTest 
   @Test
   public void shouldFindCustomerByName() {
     var customerOnDatabase = customerRepository
-      .save(new Customer(null, "Customer name", State.CREATED))
+      .save(new Customer("Customer name", State.CREATED))
       .block();
 
     var graphQLQuery =
@@ -70,8 +70,8 @@ public class CustomerQueryGraphQLIntegrationTest extends GraphQLIntegrationTest 
   }
 
   private List<Customer> givenListOfCustomersOnDatabase() {
-    var firstCustomer = new Customer(null, "First Customer", State.CREATED);
-    var secondCustomer = new Customer(null, "Second Customer", State.CREATED);
+    var firstCustomer = new Customer("First Customer", State.CREATED);
+    var secondCustomer = new Customer("Second Customer", State.CREATED);
 
     return customerRepository
       .saveAll(List.of(firstCustomer, secondCustomer))

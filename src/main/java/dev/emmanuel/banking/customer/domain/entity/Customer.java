@@ -6,6 +6,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("customers")
 public record Customer(@Id Integer id, String name, State state) {
 
+  public Customer(String name, State state) {
+    this(null, name, state);
+  }
+
   public Customer withState(State state) {
     return new Customer(id, name, state);
   }

@@ -49,7 +49,7 @@ public class CustomerMutationGraphQLIntegrationTest extends GraphQLIntegrationTe
 
   @Test
   public void shouldUpdateCustomerState() {
-    var customerOnDatabase = customerRepository.save(new Customer(null, "Customer", State.CREATED)).block();
+    var customerOnDatabase = customerRepository.save(new Customer("Customer", State.CREATED)).block();
     var customerId = customerOnDatabase.id();
     var newState = State.ACTIVATED;
 
