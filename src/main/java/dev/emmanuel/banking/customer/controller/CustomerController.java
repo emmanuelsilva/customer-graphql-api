@@ -48,7 +48,7 @@ public class CustomerController  {
   }
 
   @MutationMapping("changeState")
-  public Mono<Customer> changeState(@Argument("request")ChangeCustomerStateRequest request) {
+  public Mono<Customer> changeState(@Argument("request") ChangeCustomerStateRequest request) {
     return changeCustomerStateService.changeState(request);
   }
 
