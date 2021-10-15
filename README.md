@@ -81,5 +81,4 @@ subscription {
 
 ## TODO
 * * *
-- Testing GraphQL API
 - Authentication
